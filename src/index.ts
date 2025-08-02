@@ -1,5 +1,5 @@
-import { type User } from "better-auth";
 import { betterFetch } from "@better-fetch/fetch";
+import type { User } from "better-auth";
 import { genericOAuth } from "better-auth/plugins";
 import { decodeJwt, importJWK, SignJWT } from "jose";
 
