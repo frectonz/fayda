@@ -14,12 +14,14 @@ export interface FaydaOptions {
   redirectUrl: string;
 }
 
+type Fayda = Promise<ReturnType<typeof genericOAuth>>;
+
 export const fayda = async ({
   clientId,
   privateKey,
   redirectUrl,
-}: FaydaOptions) => {
-  genericOAuth({
+}: FaydaOptions): Fayda => {
+  return genericOAuth({
     config: [
       {
         providerId: "fayda",
