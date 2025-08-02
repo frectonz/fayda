@@ -11,7 +11,7 @@ const TOKEN_ENDPOINT = "https://esignet.ida.fayda.et/v1/esignet/oauth/v2/token";
 export interface FaydaOptions {
   clientId: string;
   privateKey: string;
-  redirectUrl: string;
+  redirectUrl?: string;
 }
 
 type Fayda = Promise<ReturnType<typeof genericOAuth>>;
