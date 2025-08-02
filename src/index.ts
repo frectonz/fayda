@@ -44,7 +44,11 @@ export const fayda = async ({
             retry: 5,
           });
 
-          const jwt = await userInfo.data?.text()!;
+          const jwt = await userInfo.data?.text();
+          if (!jwt) {
+            return null;
+          }
+
           const user = decodeJwt(jwt);
 
           return {
