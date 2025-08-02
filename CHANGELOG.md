@@ -1,5 +1,11 @@
 # fayda
 
+## 0.0.10
+
+### Patch Changes
+
+- 494d684: chore: fix remove duplicate block in readme
+
 ## 0.0.9
 
 ### Patch Changes
