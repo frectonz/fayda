@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Setup Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Run flake check
+        run: nix flake check
+
+      - name: Install dependencies
+        run: nix develop -c pnpm install --frozen-lockfile
+
+      - name: Run build
+        run: nix develop -c pnpm build
+
+      - name: Run lint
+        run: nix develop -c pnpm lint
+
+      - name: Run check
+        run: nix develop -c pnpm check
+
