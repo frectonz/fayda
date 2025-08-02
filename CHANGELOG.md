@@ -1,5 +1,11 @@
 # fayda
 
+## 0.0.8
+
+### Patch Changes
+
+- 9bb75e1: fix: make the `redirectUrl` optional
+
 ## 0.0.7
 
 ### Patch Changes
