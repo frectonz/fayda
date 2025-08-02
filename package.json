@@ -3,6 +3,7 @@
   "version": "0.0.2",
   "description": "Better auth plugin for fayda.",
   "zshy": "./src/index.ts",
+  "license": "MIT",
   "scripts": {
     "build": "zshy",
     "lint": "biome lint",
