@@ -1,5 +1,11 @@
 # fayda
 
+## 0.0.7
+
+### Patch Changes
+
+- 28dd032: feat: set scopes value
+
 ## 0.0.6
 
 ### Patch Changes
