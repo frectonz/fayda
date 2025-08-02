@@ -1,5 +1,11 @@
 # fayda
 
+## 0.0.5
+
+### Patch Changes
+
+- e829619: feat: `fayda` server plugin
+
 ## 0.0.4
 
 ### Patch Changes
