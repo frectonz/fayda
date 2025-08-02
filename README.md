@@ -59,24 +59,6 @@ export const load: PageServerLoad = async (req) => {
 };
 ```
 
----
-NOTE: Make sure that the `clientId` you have been issued has the `redirectURL` set to `<baseUrl>/api/auth/oauth2/callback/fayda`. If you are using a development `clientId` then you can use the `callbackUrl` you were given and set up a redirector at the callback URL that redirects the request to the real callback handler at `/api/auth/oauth2/callback/fayda`.
-Here is some sveltekit demo code on how to implement the redirect. In the followinf example if the `callbackURL` you were given is `http://localhost:3000/callback`, you can place the following contents at `src/routes/callback/+page.server.ts`
-
-```ts
-import { redirect } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
-
-export const load: PageServerLoad = async (req) => {
-	const originalUrl = new URL(req.url, `http://localhost:3000`);
-	const target = new URL('http://localhost:3000/api/auth/oauth2/callback/fayda');
-	target.search = originalUrl.search;
-
-	redirect(302, target);
-};
-
-```
-
 ## Auth Configuration
 
 Next, you need to add the generic OAuth client plugin to your client-side authentication configuration. This will enable the client to initiate the OAuth flow with the Fayda provider.
