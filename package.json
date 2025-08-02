@@ -1,0 +1,30 @@
+{
+  "name": "fayda",
+  "version": "0.0.2",
+  "description": "Better auth plugin for fayda.",
+  "zshy": "./src/index.ts",
+  "scripts": {
+    "build": "zshy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.4",
+  "devDependencies": {
+    "typescript": "^5.9.2",
+    "zshy": "^0.3.4"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  }
+}
