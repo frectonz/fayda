@@ -1,5 +1,11 @@
 # fayda
 
+## 0.0.6
+
+### Patch Changes
+
+- 660d9ab: feat: initial plugin implementation
+
 ## 0.0.5
 
 ### Patch Changes
