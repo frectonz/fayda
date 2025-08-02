@@ -1,5 +1,11 @@
 # fayda
 
+## 0.0.9
+
+### Patch Changes
+
+- 965e2f1: chore: add readme
+
 ## 0.0.8
 
 ### Patch Changes
