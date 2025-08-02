@@ -4,13 +4,18 @@
   "description": "Better auth plugin for fayda.",
   "zshy": "./src/index.ts",
   "scripts": {
-    "build": "zshy"
+    "build": "zshy",
+    "lint": "biome lint",
+    "check": "biome check",
+    "format": "biome format --write",
+    "check:write": "biome check --write"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.12.4",
   "devDependencies": {
+    "biome": "^0.3.3",
     "typescript": "^5.9.2",
     "zshy": "^0.3.4"
   },
