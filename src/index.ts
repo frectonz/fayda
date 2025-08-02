@@ -37,6 +37,8 @@ export const fayda = async ({
             "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
         },
 
+        scopes: ["openid", "profile", "email"],
+
         async getUserInfo(tokens) {
           const userInfo = await betterFetch<Blob>(USER_INFO_URL, {
             method: "GET",
