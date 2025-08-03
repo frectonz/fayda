@@ -8,10 +8,14 @@ const DISCOVERY_URL =
 const USER_INFO_URL = "https://esignet.ida.fayda.et/v1/esignet/oidc/userinfo";
 const TOKEN_ENDPOINT = "https://esignet.ida.fayda.et/v1/esignet/oauth/v2/token";
 
+// Default scopes for Fayda authentication
+const DEFAULT_SCOPES = ["openid", "profile", "email"];
+
 export interface FaydaOptions {
   clientId: string;
   privateKey: string;
   redirectUrl?: string;
+  scopes?: string[];
 }
 
 type Fayda = Promise<ReturnType<typeof genericOAuth>>;
@@ -20,6 +24,7 @@ export const fayda = async ({
   clientId,
   privateKey,
   redirectUrl,
+  scopes,
 }: FaydaOptions): Fayda => {
   return genericOAuth({
     config: [
@@ -37,7 +42,7 @@ export const fayda = async ({
             "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
         },
 
-        scopes: ["openid", "profile", "email"],
+        scopes: scopes?.length ? scopes : DEFAULT_SCOPES,
 
         async getUserInfo(tokens) {
           const userInfo = await betterFetch<Blob>(USER_INFO_URL, {
