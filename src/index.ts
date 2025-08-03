@@ -3,24 +3,23 @@ import type { User } from "better-auth";
 import { genericOAuth } from "better-auth/plugins";
 import { decodeJwt, importJWK, SignJWT } from "jose";
 
-const DISCOVERY_URL =
-  "https://esignet.ida.fayda.et/.well-known/openid-configuration";
+const DISCOVERY_URL = "https://esignet.ida.fayda.et/.well-known/openid-configuration";
 const USER_INFO_URL = "https://esignet.ida.fayda.et/v1/esignet/oidc/userinfo";
 const TOKEN_ENDPOINT = "https://esignet.ida.fayda.et/v1/esignet/oauth/v2/token";
+
+// Default scopes for Fayda authentication
+const DEFAULT_SCOPES = ["openid", "profile", "email"];
 
 export interface FaydaOptions {
   clientId: string;
   privateKey: string;
   redirectUrl?: string;
+  scopes?: string[];
 }
 
 type Fayda = Promise<ReturnType<typeof genericOAuth>>;
 
-export const fayda = async ({
-  clientId,
-  privateKey,
-  redirectUrl,
-}: FaydaOptions): Fayda => {
+export const fayda = async ({ clientId, privateKey, redirectUrl, scopes }: FaydaOptions): Fayda => {
   return genericOAuth({
     config: [
       {
@@ -33,11 +32,10 @@ export const fayda = async ({
 
         tokenUrlParams: {
           client_assertion: await generateSignedJwt(clientId, privateKey),
-          client_assertion_type:
-            "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+          client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
         },
 
-        scopes: ["openid", "profile", "email"],
+        scopes: scopes?.length ? scopes : DEFAULT_SCOPES,
 
         async getUserInfo(tokens) {
           const userInfo = await betterFetch<Blob>(USER_INFO_URL, {
