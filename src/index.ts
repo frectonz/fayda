@@ -3,7 +3,8 @@ import type { User } from "better-auth";
 import { genericOAuth } from "better-auth/plugins";
 import { decodeJwt, importJWK, SignJWT } from "jose";
 
-const DISCOVERY_URL = "https://esignet.ida.fayda.et/.well-known/openid-configuration";
+const DISCOVERY_URL =
+  "https://esignet.ida.fayda.et/.well-known/openid-configuration";
 const USER_INFO_URL = "https://esignet.ida.fayda.et/v1/esignet/oidc/userinfo";
 const TOKEN_ENDPOINT = "https://esignet.ida.fayda.et/v1/esignet/oauth/v2/token";
 
@@ -19,7 +20,12 @@ export interface FaydaOptions {
 
 type Fayda = Promise<ReturnType<typeof genericOAuth>>;
 
-export const fayda = async ({ clientId, privateKey, redirectUrl, scopes }: FaydaOptions): Fayda => {
+export const fayda = async ({
+  clientId,
+  privateKey,
+  redirectUrl,
+  scopes,
+}: FaydaOptions): Fayda => {
   return genericOAuth({
     config: [
       {
@@ -32,7 +38,8 @@ export const fayda = async ({ clientId, privateKey, redirectUrl, scopes }: Fayda
 
         tokenUrlParams: {
           client_assertion: await generateSignedJwt(clientId, privateKey),
-          client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+          client_assertion_type:
+            "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
         },
 
         scopes: scopes?.length ? scopes : DEFAULT_SCOPES,
