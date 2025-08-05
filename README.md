@@ -1,5 +1,3 @@
-_Updated readme_
-
 # Better Auth Fayda Plugin
 
 Better Auth plugin for Fayda.
