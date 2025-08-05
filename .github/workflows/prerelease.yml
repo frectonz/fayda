@@ -37,6 +37,9 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
 
+      - name: Install deps
+        run: nix develop -c pnpm install --frozen-lockfile
+
       - name: Check for pre.json file existence
         id: check_files
         uses: andstor/file-existence-action@v3
