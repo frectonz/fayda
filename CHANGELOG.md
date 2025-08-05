@@ -1,5 +1,17 @@
 # fayda
 
+## 0.0.13
+
+### Patch Changes
+
+- e007169: chore: testing prerelease
+
+## 0.0.13-next.0
+
+### Patch Changes
+
+- e007169: chore: testing prerelease
+
 ## 0.0.12
 
 ### Patch Changes
