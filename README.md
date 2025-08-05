@@ -1,5 +1,3 @@
-_Releasing 0.1_
-
 # Better Auth Fayda Plugin
 
 Better Auth plugin for Fayda.
