@@ -4,5 +4,7 @@
   "initialVersions": {
     "fayda": "0.0.11"
   },
-  "changesets": []
+  "changesets": [
+    "cyan-chicken-smile"
+  ]
 }
