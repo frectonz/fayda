@@ -8,7 +8,6 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 env:
-  REPO: 'frectonz/fayda'
   PRE_TAG: 'next'
   EXIT_PRERELEASE_COMMIT_MSG: 'Exit prerelease'
   VERSION_PR_COMMIT_PREFIX: 'Version Packages'
@@ -16,7 +15,6 @@ env:
 jobs:
   prerelease:
     name: Changesets Prerelease
-    if: github.repository == env.REPO
     runs-on: ubuntu-latest
     permissions:
       contents: write

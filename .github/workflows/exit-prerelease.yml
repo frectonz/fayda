@@ -1,0 +1,82 @@
+name: Exit Prerelease Mode
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Release branch to exit prerelease mode on (e.g., release-1.2)"
+        type: string
+        default: "release-1.2"
+        required: true
+
+env:
+  PRE_TAG: 'next'
+  EXIT_PRERELEASE_COMMIT_MSG: 'Exit prerelease'
+
+env:
+  PRE_TAG: 'next'
+  EXIT_PRERELEASE_COMMIT_MSG: 'Exit prerelease'
+  BASE_BRANCH: 'main'
+
+jobs:
+  exit_prerelease:
+    name: Changesets Exit Prerelease
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+
+    steps:
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
+
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          ref: ${{ github.event.inputs.branch }}
+          fetch-depth: 0
+
+      - name: Get GitHub App User ID
+        id: get-user-id
+        run: echo "user-id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+
+      - name: Exit prerelease mode
+        run: |
+          git config --global user.name '${{ steps.app-token.outputs.app-slug }}[bot]'
+          git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
+          nix develop -c pnpm changeset pre exit ${{ env.PRE_TAG }}
+          git add -A
+          git commit -m "${{ env.EXIT_PRERELEASE_COMMIT_MSG }}" || echo "Nothing to commit"
+          git push
+
+      - name: Create PR to merge release branch to ${{ env.BASE_BRANCH }}
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          BASE_BRANCH: ${{ env.BASE_BRANCH }}
+        run: |
+          branch="${{ github.event.inputs.branch }}"
+          title="Merge $branch into $BASE_BRANCH"
+
+          existing_pr=$(gh pr list \
+            --base "$BASE_BRANCH" \
+            --head "$branch" \
+            --state open \
+            --json number \
+            --jq '.[0].number')
+
+          if [ -z "$existing_pr" ]; then
+            gh pr create \
+              --title "$title" \
+              --body "This PR merges \`$branch\` into \`$BASE_BRANCH\` after exiting prerelease mode." \
+              --head "$branch" \
+              --base "$BASE_BRANCH"
+          else
+            echo "PR already exists: #$existing_pr"
+          fi
