@@ -5,6 +5,7 @@
     "fayda": "0.0.11"
   },
   "changesets": [
-    "cyan-chicken-smile"
+    "cyan-chicken-smile",
+    "quick-stars-pay"
   ]
 }
