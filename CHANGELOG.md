@@ -1,5 +1,24 @@
 # fayda
 
+## 0.0.12
+
+### Patch Changes
+
+- ce0c5c9: feat: setup prerelease workflow
+- f97db7d: fix: bugs in prerelease workflow
+
+## 0.0.12-next.1
+
+### Patch Changes
+
+- f97db7d: fix: bugs in prerelease workflow
+
+## 0.0.12-next.0
+
+### Patch Changes
+
+- ce0c5c9: feat: setup prerelease workflow
+
 ## 0.0.11
 
 ### Patch Changes

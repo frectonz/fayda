@@ -34,6 +34,12 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0
 
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Install deps
+        run: nix develop -c pnpm install --frozen-lockfile
+
       - name: Check for pre.json file existence
         id: check_files
         uses: andstor/file-existence-action@v3
@@ -47,7 +53,7 @@ jobs:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Enter prerelease mode
-        if: steps.check_files.outputs.files_exists == 'false' && !contains(github.event.head_commit.message, env.EXIT_PRERELEASE_COMMIT_MSG)
+        if: steps.check_files.outputs.files_exists == 'false' && !contains(github.event.head_commit.message, env.EXIT_PRERELEASE_COMMIT_MSG) && !contains(github.event.head_commit.message, 'changeset-release/')
         run: |
           git config --global user.name '${{ steps.app-token.outputs.app-slug }}[bot]'
           git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
@@ -66,7 +72,7 @@ jobs:
 
       - name: Publish to npm + GitHub
         id: changesets
-        if: steps.check_files.outputs.files_exists == 'true' && startsWith(github.event.head_commit.message, env.VERSION_PR_COMMIT_PREFIX)
+        if: steps.check_files.outputs.files_exists == 'true' && contains(github.event.head_commit.message, 'changeset-release/')
         uses: changesets/action@v1
         with:
           version: echo "This step should never version"
