@@ -10,7 +10,8 @@
     "check": "biome check",
     "format": "biome format --write",
     "check:write": "biome check --write",
-    "release": "pnpm build && changeset publish"
+    "release": "pnpm build && changeset publish",
+    "version": "pnpm changeset version && pnpm i"
   },
   "keywords": [
     "batter-auth",
