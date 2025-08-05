@@ -34,6 +34,9 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0
 
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
       - name: Check for pre.json file existence
         id: check_files
         uses: andstor/file-existence-action@v3
