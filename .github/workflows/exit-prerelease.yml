@@ -12,10 +12,6 @@ on:
 env:
   PRE_TAG: 'next'
   EXIT_PRERELEASE_COMMIT_MSG: 'Exit prerelease'
-
-env:
-  PRE_TAG: 'next'
-  EXIT_PRERELEASE_COMMIT_MSG: 'Exit prerelease'
   BASE_BRANCH: 'main'
 
 jobs:
