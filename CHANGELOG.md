@@ -1,5 +1,11 @@
 # fayda
 
+## 0.0.14
+
+### Patch Changes
+
+- 20afaac: chore: remove readme edit
+
 ## 0.0.13
 
 ### Patch Changes
