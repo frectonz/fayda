@@ -1,6 +1,6 @@
 {
   "name": "fayda",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Better Auth plugin for Fayda.",
   "zshy": "./src/index.ts",
   "license": "MIT",
